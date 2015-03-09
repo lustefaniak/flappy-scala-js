@@ -1,30 +1,30 @@
 package example
 
-class Vector(val x: Double, val y: Double) {
+case class Vect(val x: Double, val y: Double) {
 
-  def normalize: Vector = {
+  def normalize: Vect = {
     val m = this.magnitude
-    new Vector(x / m, y / m)
+    new Vect(x / m, y / m)
   }
 
   def magnitude: Double =
     math.sqrt((x * x) + (y * y))
 
-  def dot(that: Vector): Double =
+  def dot(that: Vect): Double =
     this.x * that.x + this.y * that.y
 
-  def +(that: Vector): Vector =
-    new Vector(that.x + x, that.y + y)
+  def +(that: Vect): Vect =
+    new Vect(that.x + x, that.y + y)
 
-  def -(that: Vector): Vector =
-    new Vector(x - that.x, y - that.y)
+  def -(that: Vect): Vect =
+    new Vect(x - that.x, y - that.y)
 
-  def *(that: Vector): Vector =
-    new Vector(x * that.x, y * that.y)
+  def *(that: Vect): Vect =
+    new Vect(x * that.x, y * that.y)
 
-  def multiplyScalar(w: Double): Vector =
-    new Vector(x * w, y * w)
+  def multiplyScalar(w: Double): Vect =
+    new Vect(x * w, y * w)
 
   override def toString =
-    s"Vector [$x, $y]"
+    s"Vect [$x, $y]"
 }

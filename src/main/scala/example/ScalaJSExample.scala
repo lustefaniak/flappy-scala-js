@@ -16,6 +16,10 @@ object ScalaJSExample {
     val ctx = canvas.getContext("2d")
       .asInstanceOf[dom.CanvasRenderingContext2D]
 
+    val playerSize = 50
+    val player = Vect(20, canvas.height / 2 - playerSize / 2)
+
+
     def clear() = {
       ctx.fillStyle = "black"
       ctx.fillRect(0, 0, canvas.width, canvas.height)
@@ -25,7 +29,7 @@ object ScalaJSExample {
       clear()
 
       ctx.fillStyle = "white"
-      ctx.fillRect(100, 100, 200, 200)
+      ctx.fillRect(player.x, player.y, playerSize, playerSize)
 
     }
 
