@@ -23,6 +23,10 @@ object ScalaJSExample {
 
     def run = {
       clear()
+
+      ctx.fillStyle = "white"
+      ctx.fillRect(100, 100, 200, 200)
+
     }
 
     dom.setInterval(() => run, 16)
