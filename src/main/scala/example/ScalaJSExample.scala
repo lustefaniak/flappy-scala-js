@@ -44,6 +44,12 @@ object ScalaJSExample {
       if (ke.keyCode == ext.KeyCode.space) jump = false
       if (ke.keyCode == ext.KeyCode.r) gameState = new GameState {}
     }
+    window.onmousedown = (me:MouseEvent) => {
+      jump = true
+    }
+    window.onmouseup = (me:MouseEvent) => {
+      jump = false
+    }
 
     val ctx = canvas.getContext("2d")
       .asInstanceOf[dom.CanvasRenderingContext2D]
