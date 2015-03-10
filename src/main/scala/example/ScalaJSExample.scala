@@ -38,9 +38,9 @@ object ScalaJSExample {
     val acceleration = Vect(0, 0.3)
     var speed = Vect(0, 0)
     val enemyEvery = canvas.width / 3
-    var frame:Long = 0
+    var frame: Long = 0
 
-
+    var score: Long = 0
 
     var enemies = for (i <- 2 to 20) yield (i * enemyEvery, genEnemy(canvas.height))
 
@@ -63,11 +63,13 @@ object ScalaJSExample {
       enemies = enemies.map {
         case (x, y) => if (x > -playerSize)
           (x - 5, y)
-        else (maxX + enemyEvery, genEnemy(canvas.height))
+        else {
+          score += 1
+          (maxX + enemyEvery, genEnemy(canvas.height))
+        }
       }
 
       if (player.y + playerSize > canvas.height || player.y < 0) alive = false
-
 
       enemies.foreach {
         case (x, y) =>
@@ -76,7 +78,6 @@ object ScalaJSExample {
               alive = false
           }
       }
-
     }
 
 
@@ -95,10 +96,13 @@ object ScalaJSExample {
           ctx.fillRect(x, y + 3 * playerSize, playerSize, canvas.height)
       }
 
-      ctx.font = "30pt Calibri"
-      ctx.lineWidth = 2
-      ctx.strokeStyle = "green"
-      ctx.strokeText("To jump press <space>, to restart reload page.",100,100)
+      ctx.font = "20px Helvetica"
+      ctx.fillStyle = "green"
+      ctx.fillText("To jump press <space>, to restart reload page.", 10, canvas.height - 10)
+
+      ctx.font = "40px Helvetica"
+      ctx.fillStyle = "green"
+      ctx.fillText(score.toString, 10, 40)
 
 
     }
