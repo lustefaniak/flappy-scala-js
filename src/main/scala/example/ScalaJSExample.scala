@@ -27,15 +27,27 @@ object ScalaJSExample {
     val ctx = canvas.getContext("2d")
       .asInstanceOf[dom.CanvasRenderingContext2D]
 
+
+    val frameTime:Double = 16.0/1000.0
     val playerSize = 50
-    val player = Vect(100, canvas.height / 2 - playerSize / 2)
+    var player = Vect(100, 0)
+    val acceleration = Vect(0,50 0)
+    var speed = Vect(0,0)
 
     def clear() = {
       ctx.fillStyle = "black"
       ctx.fillRect(0, 0, canvas.width, canvas.height)
     }
 
+    def update(): Unit = {
+      speed = speed + acceleration * frameTime
+      player = player + speed * frameTime
+      
+    }
+
+
     def run = {
+      update()
       clear()
 
       ctx.fillStyle = "white"

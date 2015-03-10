@@ -22,7 +22,7 @@ case class Vect(val x: Double, val y: Double) {
   def *(that: Vect): Vect =
     new Vect(x * that.x, y * that.y)
 
-  def multiplyScalar(w: Double): Vect =
+  def *(w: Double): Vect =
     new Vect(x * w, y * w)
 
   override def toString =
