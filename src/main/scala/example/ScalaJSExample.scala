@@ -1,5 +1,6 @@
 package example
 
+import scala.collection.mutable
 import scala.scalajs.js.annotation.JSExport
 import org.scalajs.dom
 import org.scalajs.dom._
@@ -13,12 +14,21 @@ object ScalaJSExample {
       resizeCanvas(canvas)
     }
 
+    val keys = mutable.Set[Int]()
+
+    window.onkeydown = (ke:KeyboardEvent)=>{
+      keys.add(ke.keyCode)
+    }
+
+    window.onkeyup = (ke:KeyboardEvent)=>{
+      keys.remove(ke.keyCode)
+    }
+
     val ctx = canvas.getContext("2d")
       .asInstanceOf[dom.CanvasRenderingContext2D]
 
     val playerSize = 50
-    val player = Vect(20, canvas.height / 2 - playerSize / 2)
-
+    val player = Vect(100, canvas.height / 2 - playerSize / 2)
 
     def clear() = {
       ctx.fillStyle = "black"
