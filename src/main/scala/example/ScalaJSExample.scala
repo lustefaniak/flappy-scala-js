@@ -13,6 +13,7 @@ import scala.util.Random
 object ScalaJSExample {
   @JSExport
   def main(canvas: html.Canvas): Unit = {
+    resizeCanvas(canvas)
 
     trait GameState {
       var alive = true
@@ -21,7 +22,7 @@ object ScalaJSExample {
       var player = Vect(100, canvas.height / 2 - playerSize / 2)
       val acceleration = Vect(0, 0.3)
       var speed = Vect(0, 0)
-      val enemyEvery: Double = canvas.width / 3
+      val enemyEvery: Double = Math.min(canvas.width / 3, 600)
       var enemySpeed: Double = 5
       var frame: Long = 0
       var score: Long = 0
@@ -30,7 +31,6 @@ object ScalaJSExample {
 
     var gameState = new GameState {}
 
-    resizeCanvas(canvas)
     window.onresize = (e: UIEvent) => {
       resizeCanvas(canvas)
       gameState = new GameState {}
