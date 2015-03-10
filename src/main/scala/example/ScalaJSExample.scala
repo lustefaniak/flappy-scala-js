@@ -56,7 +56,7 @@ object ScalaJSExample {
 
       val maxX = enemies.map(_._1).max
       enemies = enemies.map {
-        case (x, y) => if (x > 0)
+        case (x, y) => if (x > -playerSize)
           (x - 5, y)
         else (maxX + enemyEvery, genEnemy(canvas.height))
       }
