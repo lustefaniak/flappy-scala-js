@@ -1,5 +1,7 @@
 package example
 
+import scala.collection.immutable.NumericRange
+import scala.collection.immutable.NumericRange.Inclusive
 import scala.collection.mutable
 import scala.scalajs.js.annotation.JSExport
 import org.scalajs.dom
@@ -60,6 +62,18 @@ object ScalaJSExample {
       }
 
       if (player.y + playerSize > canvas.height || player.y < 0) alive = false
+
+
+      enemies.foreach {
+        case (x, y) =>
+          if (player.x > x && player.x < x + playerSize || player.x + playerSize > x && player.x + playerSize < x + playerSize) {
+            if (player.y > y + playerSize * 3 || player.y < y - playerSize * 2)
+              alive = false
+          }
+
+
+      }
+
 
     }
 
