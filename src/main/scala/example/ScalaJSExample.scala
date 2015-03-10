@@ -37,12 +37,13 @@ object ScalaJSExample {
     var player = Vect(100, canvas.height / 2 - playerSize / 2)
     val acceleration = Vect(0, 0.3)
     var speed = Vect(0, 0)
-    val enemyEvery = canvas.width / 3
+    val enemyEvery: Double = canvas.width / 3
+    var enemySpeed: Double = 5
     var frame: Long = 0
 
     var score: Long = 0
 
-    var enemies = for (i <- 2 to 20) yield (i * enemyEvery, genEnemy(canvas.height))
+    var enemies: Seq[(Double, Double)] = (for (i <- 2 to 20) yield (i * enemyEvery, genEnemy(canvas.height))).toSeq
 
     def clear() = {
       ctx.fillStyle = "black"
@@ -62,9 +63,10 @@ object ScalaJSExample {
       val maxX = enemies.map(_._1).max
       enemies = enemies.map {
         case (x, y) => if (x > -playerSize)
-          (x - 5, y)
+          (x - enemySpeed, y)
         else {
           score += 1
+          enemySpeed = 5 * Math.pow(1.03, score)
           (maxX + enemyEvery, genEnemy(canvas.height))
         }
       }
@@ -74,7 +76,7 @@ object ScalaJSExample {
       enemies.foreach {
         case (x, y) =>
           if (player.x > x && player.x < x + playerSize || player.x + playerSize > x && player.x + playerSize < x + playerSize) {
-            if (player.y > y + playerSize * 3 || player.y < y - playerSize * 2)
+            if (player.y > y + playerSize * 2 || player.y < y - playerSize * 2)
               alive = false
           }
       }
@@ -93,7 +95,7 @@ object ScalaJSExample {
       enemies.foreach {
         case (x, y) =>
           ctx.fillRect(x, y - 2 * playerSize, playerSize, -canvas.height)
-          ctx.fillRect(x, y + 3 * playerSize, playerSize, canvas.height)
+          ctx.fillRect(x, y + 2 * playerSize, playerSize, canvas.height)
       }
 
       ctx.font = "20px Helvetica"
